@@ -1,23 +1,23 @@
 {
   "name": "typescript-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "tsc && nodemon dist/server.js"
+    "dev": "tsc && node dist/server/src/server.js"
   },
   "keywords": [],
   "author": "",
-
   "type": "module",
-
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/ws": "^8.18.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@types/express": "^5.0.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "ws": "^8.20.0"
   }
 }
