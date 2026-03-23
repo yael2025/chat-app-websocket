@@ -22,4 +22,4 @@ wss.on("connection", (ws: WebSocket) => {
   });
 });
 
-console.log("WebSocket server is running on port 8080");
+console.log("WebSocket server is running on port 8081");
