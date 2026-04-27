@@ -2,11 +2,12 @@ import {useEffect ,useRef, useState  } from "react";
 import "./App.css";
 import { Message } from "../../common";
 import MessageList from "./components/MessageList";
+import MessageForm from "./components/MessageForm";
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [user, setUser] = useState<string>("");
-  const [text, setText] = useState<string>(""); 
+  
+  const userId = useRef(`user-${Math.floor(Math.random() * 10000)}`).current;
 
   const socketRef = useRef<WebSocket | null>(null); 
 
@@ -35,39 +36,21 @@ function App() {
     };
   }, []);
 
-  const sendMessage = ()=>{
-    if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN){
+  
+
+  const sendMessage = (message: Message) => {
+    if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
       return;
     }
-    if(!user.trim()|| !text.trim()){
-      return;
-    }
-    const message :Message = {
-      user,
-      text
-    };
+  
     socketRef.current.send(JSON.stringify(message));
-    setText("")
   };
 
   return(
     <div>
     <h1>Chat App</h1>
-    <input 
-    type="text"
-    placeholder="Your name"
-    value={user}
-    onChange={(e) => setUser(e.target.value)}
-     />
-    <input
-      type="text"
-      placeholder="Write a message"
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-    />
-       <button onClick={sendMessage}>Send</button>
-
        <MessageList messages={messages} />
+       <MessageForm userId={userId} onSend={sendMessage} />
     </div>
   );
 }
