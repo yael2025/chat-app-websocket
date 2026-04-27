@@ -1,6 +1,7 @@
 import {useEffect ,useRef, useState  } from "react";
 import "./App.css";
 import { Message } from "../../common";
+import MessageList from "./components/MessageList";
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -66,13 +67,7 @@ function App() {
     />
        <button onClick={sendMessage}>Send</button>
 
-       <div>
-        {messages.map((msg, index)=>(
-          <p key = {index}>
-            <strong>{msg.user}:</strong> {msg.text}
-          </p>
-        ))}
-       </div>
+       <MessageList messages={messages} />
     </div>
   );
 }
